@@ -7,7 +7,7 @@ $ExoSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri
 Import-PSSession $ExoSession
 
 #Enable global audit logging
-Get-Mailbox -ResultSize Unlimited -Filter {RecipientTypeDetails -eq "UserMailbox" -or RecipientTypeDetails -eq "SharedMailbox" -or RecipientTypeDetails -eq "RoomMailbox" -or RecipientTypeDetails -eq "DiscoveryMailbox"} | Set-Mailbox -AuditEnabled $true -AuditLogAgeLimit 180 -AuditOwner Create,HardDelete,MailboxLogin,Move,MoveToDeletedItems,SoftDelete,Update,UpdateFolderPermissions -AuditDelegate Create,HardDelete,Move,MoveToDeletedItems,SendAs,SendOnBehalf,SoftDelete,Update,UpdateFolderPermissions -AuditAdmin Copy,Create ,HardDelete ,Move,MoveToDeletedItems,SendAs,SendOnBehalf,SoftDelete,Update,UpdateFolderPermissions
+Get-Mailbox -ResultSize Unlimited -Filter {RecipientTypeDetails -eq "UserMailbox" -or RecipientTypeDetails -eq "SharedMailbox" -or RecipientTypeDetails -eq "RoomMailbox" -or RecipientTypeDetails -eq "DiscoveryMailbox"} | Set-Mailbox -AuditEnabled $true -AuditLogAgeLimit 180 -AuditOwner Update, MoveToDeletedItems, SoftDelete, HardDelete, SendAs, SendOnBehalf, Create, UpdateFolderPermissions -AuditDelegate Update, SoftDelete, HardDelete, SendAs, Create, UpdateFolderPermissions, MoveToDeletedItems, SendOnBehalf -AuditAdmin UpdateFolderPermissions, MailboxLogin, Create, SoftDelete, HardDelete, Update, MoveToDeletedItems
 
 #Double-Check It!
 Get-Mailbox -ResultSize Unlimited | Select Name, AuditEnabled, AuditLogAgeLimit | Out-Gridview
